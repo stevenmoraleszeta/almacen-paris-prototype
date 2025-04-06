@@ -1,29 +1,44 @@
+'use client';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useCarrito } from '../hooks/useCarrito';
+import { Producto } from '../types/producto';
+import { FiShoppingCart, FiHeart } from 'react-icons/fi';
 
-export interface Producto {
-    id: string;
-    nombre: string;
-    precio: number;
-    categoria: string;
-    imagen: string;
-    descripcion: string;
-}
+export default function ProductoCard({ product }: { product: Producto }) {
+    const { agregarProducto } = useCarrito();
 
-export default function ProductoCard({ producto }: { producto: Producto }) {
     return (
-        <Link href={`/productos/${producto.id}`}>
-            <div className="rounded-lg border p-3 shadow hover:shadow-xl transition">
+        <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <div className="relative aspect-square overflow-hidden">
                 <Image
-                    src={producto.imagen}
-                    alt={producto.nombre}
-                    width={500}
-                    height={500}
-                    className="rounded"
+                    src={product.imagen}
+                    alt={product.nombre}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <h3 className="mt-2 text-lg font-semibold">{producto.nombre}</h3>
-                <p className="text-orange-500 font-bold">${producto.precio}</p>
+                <button 
+                    className="absolute top-4 right-4 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
+                    onClick={() => {/* TODO: Implementar favoritos */}}
+                >
+                    <FiHeart className="w-5 h-5 text-gray-600" />
+                </button>
             </div>
-        </Link>
+            <div className="p-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{product.nombre}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-2">{product.descripcion}</p>
+                <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-[var(--primary-aqua)]">
+                        ${product.precio}
+                    </span>
+                    <button
+                        onClick={() => agregarProducto(product)}
+                        className="btn-primary flex items-center gap-2"
+                    >
+                        <FiShoppingCart className="w-5 h-5" />
+                        <span>Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }
