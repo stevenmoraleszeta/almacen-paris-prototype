@@ -1,7 +1,18 @@
 {
   "name": "prototipo-almacen-paris",
   "version": "0.1.0",
+  "description": "A modern, full-stack e-commerce prototype built with Next.js 15, featuring shopping cart, product catalog, and responsive design",
   "private": true,
+  "author": "Steven Morales Fallas",
+  "keywords": [
+    "nextjs",
+    "react",
+    "typescript",
+    "e-commerce",
+    "shopping-cart",
+    "tailwindcss",
+    "framer-motion"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
